@@ -26,11 +26,11 @@ import java.util.stream.Collectors;
 
 public class GameStateHandler {
     private static GameStateHandler INSTANCE;
-    private final Minecraft mc = Minecraft.getInstance();
-    private final Pattern areaPattern = Pattern.compile("Area:\\s(.+)");
-    private final Timer notMovingTimer = new Timer();
-    private final Timer rewarpTimer = new Timer();
-    private final Clock jacobContestLeftClock = new Clock() {
+    private static final Minecraft mc = Minecraft.getInstance();
+    private static final Pattern areaPattern = Pattern.compile("Area:\\s(.+)");
+    private static final Timer notMovingTimer = new Timer();
+    private static final Timer rewarpTimer = new Timer();
+    private static final Clock jacobContestLeftClock = new Clock() {
         @Override
         public ZoneId getZone() {
             return null;
@@ -47,94 +47,94 @@ public class GameStateHandler {
         }
     };
 
-    public final Pattern jacobsRemainingTimePattern = Pattern.compile("([0-9]|[1-2][0-9])m([0-9]|[1-5][0-9])s");
-    public final Pattern jacobsStartsInTimePattern = Pattern.compile("Starts In: ([1-3]?[0-9])?m ?([1-5]?[0-9])?s?");
-    private final Pattern serverClosingPattern = Pattern.compile("Server closing: (?<minutes>\\d+):(?<seconds>\\d+) .*");
-    private final Pattern pestsFromVacuumPattern = Pattern.compile("Vacuum Bag: ([\\d,]+) Pest(s)?");
-    private final Pattern composterResourceTablistPattern = Pattern.compile("\\s(Organic Matter|Fuel): (\\d{1,3}(\\.\\d{1,3})?)k");
+    public static final Pattern jacobsRemainingTimePattern = Pattern.compile("([0-9]|[1-2][0-9])m([0-9]|[1-5][0-9])s");
+    public static final Pattern jacobsStartsInTimePattern = Pattern.compile("Starts In: ([1-3]?[0-9])?m ?([1-5]?[0-9])?s?");
+    private static final Pattern serverClosingPattern = Pattern.compile("Server closing: (?<minutes>\\d+):(?<seconds>\\d+) .*");
+    private static final Pattern pestsFromVacuumPattern = Pattern.compile("Vacuum Bag: ([\\d,]+) Pest(s)?");
+    private static final Pattern composterResourceTablistPattern = Pattern.compile("\\s(Organic Matter|Fuel): (\\d{1,3}(\\.\\d{1,3})?)k");
 
     @Getter
-    private Location lastLocation = Location.TELEPORTING;
+    private static Location lastLocation = Location.TELEPORTING;
     @Getter
-    private Location location = Location.TELEPORTING;
+    private static Location location = Location.TELEPORTING;
 
     @Getter
-    private long lastTimeInGarden = -1;
+    private static long lastTimeInGarden = -1;
 
-    private boolean isInJacobContest = false;
-    private boolean isGuestInGarden = false;
+    private static boolean isInJacobContest = false;
+    private static boolean isGuestInGarden = false;
     @Getter
-    private boolean frontWalkable;
+    private static boolean frontWalkable;
     @Getter
-    private boolean rightWalkable;
+    private static boolean rightWalkable;
     @Getter
-    private boolean leftWalkable;
+    private static boolean leftWalkable;
     @Getter
-    private boolean backWalkable;
-
-    @Getter
-    private double dx;
-    @Getter
-    private double dy;
-    @Getter
-    private double dz;
+    private static boolean backWalkable;
 
     @Getter
-    private String serverIP;
-    private long randomValueToWait = -1;
-    private long randomRewarpValueToWait = -1;
-    private long randomValueToWaitNextTime = -1;
+    private static double dx;
+    @Getter
+    private static double dy;
+    @Getter
+    private static double dz;
 
     @Getter
-    private BuffState cookieBuffState = BuffState.UNKNOWN;
+    private static String serverIP;
+    private static long randomValueToWait = -1;
+    private static long randomRewarpValueToWait = -1;
+    private static long randomValueToWaitNextTime = -1;
+
     @Getter
-    private BuffState godPotState = BuffState.UNKNOWN;
+    private static BuffState cookieBuffState = BuffState.UNKNOWN;
+    @Getter
+    private static BuffState godPotState = BuffState.UNKNOWN;
     @Getter @Setter
-    private BuffState pestRepellentState = BuffState.UNKNOWN;
+    private static BuffState pestRepellentState = BuffState.UNKNOWN;
     @Getter
-    private BuffState composterState = BuffState.UNKNOWN;
+    private static BuffState composterState = BuffState.UNKNOWN;
 
     @Getter
-    private double currentPurse = 0;
+    private static double currentPurse = 0;
     @Getter
-    private double previousPurse = 0;
+    private static double previousPurse = 0;
     @Getter
-    private long bits = 0;
+    private static long bits = 0;
     @Getter
-    private long copper = 0;
+    private static long copper = 0;
 
     @Getter
-    private int currentPlot = 0;
+    private static int currentPlot = 0;
     @Getter
-    private List<Integer> infestedPlots = new ArrayList<>();
+    private static List<Integer> infestedPlots = new ArrayList<>();
     @Getter
-    private int pestsCount = 0;
+    private static int pestsCount = 0;
     @Getter
-    private int currentPlotPestsCount = 0;
+    private static int currentPlotPestsCount = 0;
     @Getter
-    private int organicmatterCount = Integer.MAX_VALUE;
+    private static int organicmatterCount = Integer.MAX_VALUE;
     @Getter
-    private int fuelCount = Integer.MAX_VALUE;
+    private static int fuelCount = Integer.MAX_VALUE;
 
     @Getter
-    private Optional<FarmHelperConfig.CropEnum> jacobsContestCrop = Optional.empty();
+    private static Optional<FarmHelperConfig.CropEnum> jacobsContestCrop = Optional.empty();
     @Getter
-    private List<FarmHelperConfig.CropEnum> jacobsContestNextCrop = new ArrayList<>();
+    private static List<FarmHelperConfig.CropEnum> jacobsContestNextCrop = new ArrayList<>();
     @Getter
-    private int jacobsContestCropNumber = 0;
+    private static int jacobsContestCropNumber = 0;
     @Getter
-    private JacobMedal jacobMedal = JacobMedal.NONE;
+    private static JacobMedal jacobMedal = JacobMedal.NONE;
     @Getter @Setter
-    private boolean wasInJacobContest = false;
+    private static boolean wasInJacobContest = false;
 
     @Getter @Setter
-    private Optional<Integer> serverClosingSeconds = Optional.empty();
+    private static Optional<Integer> serverClosingSeconds = Optional.empty();
 
     @Getter
-    private int speed = 0;
+    private static int speed = 0;
 
     @Setter
-    private boolean updatedState = false;
+    private static boolean updatedState = false;
 
     public static GameStateHandler getInstance(){
         if(INSTANCE == null){
@@ -210,11 +210,11 @@ public class GameStateHandler {
         this.speed = (int) (speed * 1_000);
     }
 
-    private void onTickCheckRewarp(){ }
+    private static void onTickCheckRewarp(){ }
 
-    private void onTickCheckPlot(){ }
+    private static void onTickCheckPlot(){ }
 
-    private void checkServerClosing(String cleanedLine){
+    private static void checkServerClosing(String cleanedLine){
         Matcher serverClosingMatcher = serverClosingPattern.matcher(cleanedLine);
         if(serverClosingMatcher.find()){
             int minutes = Integer.parseInt(serverClosingMatcher.group("minutes"));
@@ -223,7 +223,7 @@ public class GameStateHandler {
         }
     }
 
-    private void checkCurrentPests(List<String> list) {
+    private static void checkCurrentPests(List<String> list) {
         int pestsCountTemp = 0;
         for (String cleanedLine : list) {
             if (cleanedLine.contains("The Garden") && cleanedLine.contains("ൠ")) {
