@@ -1,6 +1,7 @@
 package com.jelly.farmhelperv3.handler;
 
 import com.jelly.farmhelperv3.config.FarmHelperConfig;
+import com.jelly.farmhelperv3.util.helper.Clock;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,6 @@ import net.minecraft.util.StringUtil;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.scores.*;
 
-import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.*;
@@ -30,23 +30,7 @@ public class GameStateHandler {
     private static final Pattern areaPattern = Pattern.compile("Area:\\s(.+)");
     private static final Timer notMovingTimer = new Timer();
     private static final Timer rewarpTimer = new Timer();
-    private static final Clock jacobContestLeftClock = new Clock() {
-        @Override
-        public ZoneId getZone() {
-            return null;
-        }
-
-        @Override
-        public Clock withZone(ZoneId zone) {
-            return null;
-        }
-
-        @Override
-        public Instant instant() {
-            return null;
-        }
-    };
-
+    private static final Clock jacobContestLeftClock = new Clock();
     public static final Pattern jacobsRemainingTimePattern = Pattern.compile("([0-9]|[1-2][0-9])m([0-9]|[1-5][0-9])s");
     public static final Pattern jacobsStartsInTimePattern = Pattern.compile("Starts In: ([1-3]?[0-9])?m ?([1-5]?[0-9])?s?");
     private static final Pattern serverClosingPattern = Pattern.compile("Server closing: (?<minutes>\\d+):(?<seconds>\\d+) .*");
