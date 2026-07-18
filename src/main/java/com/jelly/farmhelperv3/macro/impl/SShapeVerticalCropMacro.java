@@ -3,6 +3,8 @@ package com.jelly.farmhelperv3.macro.impl;
 import com.jelly.farmhelperv3.macro.AbstractMacro;
 
 public class SShapeVerticalCropMacro extends AbstractMacro{
+    public ChangeLaneDirection changeLaneDirection = null;
+
     @Override
     public void updateState() {
         //TODO
@@ -16,5 +18,10 @@ public class SShapeVerticalCropMacro extends AbstractMacro{
     @Override
     public void actionAfterTeleport() {
         //TODO
+    }
+
+    public enum ChangeLaneDirection{
+        FORWARD,
+        BACKWARD
     }
 }

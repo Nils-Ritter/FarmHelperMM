@@ -16,7 +16,7 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"de.farmhelper.FarmHelper"
+			"com.jelly.farmhelperv3.FarmHelper"
 		]
 	},
 	"mixins": [

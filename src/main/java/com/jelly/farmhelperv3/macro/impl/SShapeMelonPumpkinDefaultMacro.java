@@ -1,4 +1,20 @@
 package com.jelly.farmhelperv3.macro.impl;
 
-public class SShapeMelonPumpkinDefaultMacro {
+import com.jelly.farmhelperv3.macro.AbstractMacro;
+
+public class SShapeMelonPumpkinDefaultMacro extends AbstractMacro {
+    @Override
+    public void updateState() {
+        
+    }
+
+    @Override
+    public void invokeState() {
+
+    }
+
+    @Override
+    public void actionAfterTeleport() {
+
+    }
 }

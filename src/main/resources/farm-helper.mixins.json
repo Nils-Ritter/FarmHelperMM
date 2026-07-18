@@ -1,9 +1,8 @@
 {
 	"required": true,
-	"package": "de.farmhelper.mixin",
+	"package": "com.jelly.farmhelperv3.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
-      "com.jelly.farmhelperv3.mixin.ExampleMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
