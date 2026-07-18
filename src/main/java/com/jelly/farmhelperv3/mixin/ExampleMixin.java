@@ -1,4 +1,4 @@
-package de.farmhelper.mixin;
+package com.jelly.farmhelperv3.mixin;
 
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;

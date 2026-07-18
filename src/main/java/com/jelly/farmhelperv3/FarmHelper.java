@@ -1,5 +1,6 @@
-package de.farmhelper;
+package com.jelly.farmhelperv3;
 
+import com.jelly.farmhelperv3.handler.GameStateHandler;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.resources.Identifier;
@@ -22,6 +23,7 @@ public class FarmHelper implements ModInitializer {
 		// Proceed with mild caution.
 
 		LOGGER.info("Hey!");
+		GameStateHandler.initGameStateHandlerEvents();
 	}
 
 	public static Identifier id(String path) {
